@@ -4,4 +4,4 @@ Counter App
 
 ## Getting Started
 
-Counter app with simple stateful widget
+Counter app with bloc pattern

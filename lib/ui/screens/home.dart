@@ -1,14 +1,9 @@
+import 'package:counter_app/blocs/counter_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +11,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Counter'),
       ),
-      body: Center(
-        child: Text(
-          '$count',
-          style: const TextStyle(fontSize: 25),
+      body: BlocBuilder<CounterCubit, int>(
+        builder: (_, state) => Center(
+          child: Text(
+            '$state',
+            style: const TextStyle(fontSize: 25),
+          ),
         ),
       ),
       floatingActionButton: Row(
@@ -27,15 +24,11 @@ class _HomeState extends State<Home> {
         children: [
           FloatingActionButton(
             child: const Icon(Icons.remove),
-            onPressed: () => setState(() {
-              count--;
-            }),
+            onPressed: () => context.read<CounterCubit>().decrementCounter(),
           ),
           FloatingActionButton(
             child: const Icon(Icons.add),
-            onPressed: () => setState(() {
-              count++;
-            }),
+            onPressed: () => context.read<CounterCubit>().incrementCounter(),
           ),
         ],
       ),
